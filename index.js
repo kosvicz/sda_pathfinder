@@ -1,29 +1,42 @@
 const express = require('express');
 const app = express();
+const handlebars = require('express-handlebars')
+    .create({defaultLayout: 'main'});
+const levels = [
+  "Friend",
+  "Companion",
+  "Explorer",
+  "Ranger",
+  "Voyager",
+  "Guide"
+]
+
+app.engine('handlebars', handlebars.engine);
+app.set('view engine', 'handlebars');
 
 app.set('port', process.env.PORT || 3000);
 
+app.use(express.static(__dirname + '/public'));
+
 app.get('/', function(req, res) {
-  res.type('text/plain');
-  res.send('Hello Pathfinder');
+  var randLevel = levels[Math.floor(Math.random()*levels.length)];
+  console.log(randLevel);
+  res.render('home', { level: randLevel });
 });
 
 app.get('/about', function(req, res) {
-  res.type('text/plain');
-  res.send('About Pathfinder Club');
+  res.render('about');
 });
 
 app.use(function(req, res) {
-  res.type('text/plain');
   res.status(404);
-  res.send('404 - Not found');
+  res.render('404');
 });
 
 app.use(function(err, req, res, next) {
   console.error(err.stack);
-  res.type('text/plain');
   res.status(500);
-  res.send('500 - Server error');
+  res.render('500');
 });
 
 app.listen(app.get('port'), function() {
