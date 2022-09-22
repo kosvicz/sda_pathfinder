@@ -2,14 +2,7 @@ const express = require('express');
 const app = express();
 const handlebars = require('express-handlebars')
     .create({defaultLayout: 'main'});
-const levels = [
-  "Friend",
-  "Companion",
-  "Explorer",
-  "Ranger",
-  "Voyager",
-  "Guide"
-]
+const level = require('./lib/levels');
 
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
@@ -19,9 +12,7 @@ app.set('port', process.env.PORT || 3000);
 app.use(express.static(__dirname + '/public'));
 
 app.get('/', function(req, res) {
-  var randLevel = levels[Math.floor(Math.random()*levels.length)];
-  console.log(randLevel);
-  res.render('home', { level: randLevel });
+  res.render('home', { level: level.getLevel() });
 });
 
 app.get('/about', function(req, res) {
