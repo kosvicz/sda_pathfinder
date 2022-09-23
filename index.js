@@ -1,3 +1,4 @@
+const { application } = require('express');
 const express = require('express');
 const level = require('./lib/levels');
 
@@ -24,6 +25,14 @@ app.get('/', function(req, res) {
 
 app.get('/about', function(req, res) {
   res.render('about', { pageTestScript: '/qa/tests-about.js' });
+});
+
+app.get('/tours/hood-river', (req, res) => {
+  res.render('tours/hood-river');
+});
+
+app.get('/tours/request-group-rate', (req, res) => {
+  res.render('tours/request-group-rate');
 });
 
 app.use(function(req, res) {

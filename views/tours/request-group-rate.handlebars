@@ -1,0 +1,19 @@
+<h1>Request price for groups</h1>
+<form action="">
+  <input type="hidden" name="referrer">
+  <label for="fieldName">Name:</label><br>
+  <input type="text" id="fieldName" name="name"><br>
+  <label for="grpSize">Group size:</label><br>
+  <input type="text" id="grpSize" name="grpsize">
+  <label for="email">Email:</label>
+  <input type="email" name="email" id="email">
+  <input type="submit" value="Submit">
+</form>
+
+{{#section 'jquery'}}
+  <script>
+    $(document).ready(() => {
+      $('input[name="referrer"]').val(document.referrer);
+    });
+  </script>
+{{/section}}
