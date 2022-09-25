@@ -27,6 +27,10 @@
   },
   "devDependencies": {
     "chai": "^4.3.6",
+    "grunt": "^1.5.3",
+    "grunt-contrib-jshint": "^3.2.0",
+    "grunt-exec": "^3.0.0",
+    "grunt-mocha-test": "^0.13.3",
     "mocha": "^10.0.0",
     "zombie": "^6.1.4"
   }
