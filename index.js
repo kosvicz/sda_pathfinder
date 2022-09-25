@@ -1,10 +1,18 @@
-const { application } = require('express');
 const express = require('express');
 const level = require('./lib/levels');
 
 const app = express();
-const handlebars = require('express-handlebars')
-    .create({defaultLayout: 'main'});
+
+const handlebars = require('express-handlebars').create({
+  defaultLayout: 'main',
+  helpers: {
+    section: (name, options) => {
+      if(!this._sections) this._sections = {};
+      this._sections[name] = options.fn(this);
+      return  null;
+    }
+  }
+});
 
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
@@ -29,6 +37,10 @@ app.get('/about', function(req, res) {
 
 app.get('/tours/hood-river', (req, res) => {
   res.render('tours/hood-river');
+});
+
+app.get('/tours/oregon-coast', (req, res) => {
+  res.render('tours/oregon-coast');
 });
 
 app.get('/tours/request-group-rate', (req, res) => {
