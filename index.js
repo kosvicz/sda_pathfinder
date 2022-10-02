@@ -27,6 +27,8 @@ app.use(function(req, res, next) {
   next();
 });
 
+app.disable('x-powered-by');
+
 app.get('/', function(req, res) {
   res.render('home', { level: level.getLevel() });
 });
@@ -45,6 +47,14 @@ app.get('/tours/oregon-coast', (req, res) => {
 
 app.get('/tours/request-group-rate', (req, res) => {
   res.render('tours/request-group-rate');
+});
+
+app.get('/headers', (req, res) => {
+  res.set('Content-Type', 'text/plain');
+  let s = '';
+  for(let name in req.headers)
+    s += name + ': ' + req.headers[name] + '\n';
+  res.send(s);
 });
 
 app.use(function(req, res) {
