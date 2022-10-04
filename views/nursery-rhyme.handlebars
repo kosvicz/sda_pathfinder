@@ -1,0 +1,41 @@
+{{#section 'head'}}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js" integrity="sha512-RNLkV3d+aLtfcpEyFG8jRbnWHxUqVZozacROI4J2F1sTaDqo1dPQYs01OMi1t1w9Y2FdbSCDSQ2ZVdAC8bzgAg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script id="nurseryRhymeTemplate" type="text/x-handlebars-template">
+		Marry had a little <b>\{{animal}}</b>, its <b>\{{bodyPart}}</b>
+		was <b>\{{adjective}}</b> as <b>\{{noun}}</b>.
+	</script>
+{{/section}}
+
+<div id="nurseryRhyme">Click a button...</div>
+<hr>
+<button id="btnNurseryRhyme">Generate nursery rhyme</button>
+<button id="btnNurseryRhymeAjax">Generate nursery rhyme from AJAX</button>
+
+{{#section 'jquery'}}
+  <script>
+    $(document).ready(function(){
+      var nurseryRhymeTemplate = Handlebars.compile(
+        $('#nurseryRhymeTemplate').html());
+      var $nurseryRhyme = $('#nurseryRhyme');
+
+      $('#btnNurseryRhyme').on("click", function(ent){
+        ent.preventDefault();
+        $nurseryRhyme.html(nurseryRhymeTemplate({
+          animal:    'basilisk',
+          bodyPart:  'tail',
+          adjective: 'sharp',
+          noun:      'a needle'
+        }));
+      });
+
+      $('#btnNurseryRhymeAjax').on('click', function(ent){
+        ent.preventDefault();
+        $.ajax('data/nursery-rhyme', {
+          success: function(data){
+            $nurseryRhyme.html(nurseryRhymeTemplate(data))
+          }
+        });
+      });
+    });
+  </script>
+{{/section}}
