@@ -83,6 +83,10 @@ app.get('/tours/request-group-rate', (req, res) => {
   res.render('tours/request-group-rate');
 });
 
+app.get('/jquery-test', (req, res) => {
+  res.render('jquery-test');
+});
+
 app.use(function(req, res) {
   res.status(404);
   res.render('404');
