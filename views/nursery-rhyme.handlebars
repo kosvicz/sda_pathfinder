@@ -13,12 +13,12 @@
 
 {{#section 'jquery'}}
   <script>
-    $(document).ready(function(){
+    $(document).ready(() => {
       var nurseryRhymeTemplate = Handlebars.compile(
         $('#nurseryRhymeTemplate').html());
       var $nurseryRhyme = $('#nurseryRhyme');
 
-      $('#btnNurseryRhyme').on("click", function(ent){
+      $('#btnNurseryRhyme').on("click", (ent) => {
         ent.preventDefault();
         $nurseryRhyme.html(nurseryRhymeTemplate({
           animal:    'basilisk',
@@ -28,10 +28,10 @@
         }));
       });
 
-      $('#btnNurseryRhymeAjax').on('click', function(ent){
+      $('#btnNurseryRhymeAjax').on('click', (ent) => {
         ent.preventDefault();
         $.ajax('data/nursery-rhyme', {
-          success: function(data){
+          success: (data) => {
             $nurseryRhyme.html(nurseryRhymeTemplate(data))
           }
         });

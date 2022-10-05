@@ -22,24 +22,24 @@ app.set('port', process.env.PORT || 3000);
 
 app.use(express.static(__dirname + '/public'));
 
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
   res.locals.showTests = app.get('env') !== 'production' &&
     req.query.test === '1';
   next();
 });
 
 // middleware to add weather data to context
-app.use(function(req, res, next){
+app.use((req, res, next) => {
 if(!res.locals.partials) res.locals.partials = {};
  res.locals.partials.weatherContext = weather.getWeatherData();
  next();
 });
 
-app.get('/', function(req, res) {
+app.get('/', (req, res) => {
   res.render('home', { level: level.getLevel() });
 });
 
-app.get('/about', function(req, res) {
+app.get('/about', (req, res) => {
   res.render('about', { pageTestScript: '/qa/tests-about.js' });
 });
 
@@ -72,19 +72,18 @@ app.get('/data/nursery-rhyme', (req, res) => {
 	});
 });
 
-app.use(function(req, res) {
+app.use((req, res) => {
   res.status(404);
   res.render('404');
 });
 
-app.use(function(err, req, res, next) {
+app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500);
   res.render('500');
 });
 
-app.listen(app.get('port'), function() {
+app.listen(app.get('port'), () => {
   console.log('Express running on http://localhost:' +
     app.get('port') + '; Press Ctrl+C to stop server.');
 });
-

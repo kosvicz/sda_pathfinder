@@ -1,7 +1,7 @@
 //const { assert } = require("chai")
 
-suite('Tests about page', function(){
-  test('Page should contain a link to contacts page', function(){
+suite('Tests about page', () => {
+  test('Page should contain a link to contacts page', () => {
     assert($('a[href="/contacts"]').length);
   });
 });
